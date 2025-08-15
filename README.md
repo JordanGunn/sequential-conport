@@ -260,7 +260,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 
 ### 🚀 **Core Workflows**
 
-#### **`/bootstrap`** - Project Initialization
+#### `/bootstrap`
 **Purpose**: Idempotently initializes ConPort for your project, whether at the beginning or midway through development.
 
 **Key Features**:
@@ -272,7 +272,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 
 **Usage in Windsurf**: `/bootstrap` when starting with this workflow system or when joining an existing project that needs ConPort initialization.
 
-#### **`/continue`** - Development Continuation  
+#### `/continue` 
 **Purpose**: The **catch-all workflow** that provides a safe, context-persistent way to proceed with any development task.
 
 **Key Features**:
@@ -288,7 +288,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 
 ### 🔧 **Development Workflows**
 
-#### **`/debug`** - Test-Driven Debugging
+#### `/debug`
 **Purpose**: Reproduce test failures, iterate on fixes, and re-run tests until resolution.
 
 **Key Features**:
@@ -301,7 +301,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/debug task="fix authentication tests" scope="tests/auth/"` when you need systematic debugging.
 - `/debug by fixing authentication tests` (Using natural language.)
 
-#### **`/refactor`** - Safe Code Refactoring
+#### `/refactor`
 **Purpose**: Plan and execute safe refactoring with decision logging and quality enforcement.
 
 **Key Features**:
@@ -316,7 +316,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 
 ### 📝 **Documentation & Quality**
 
-#### **`/document`** - Documentation Generation
+#### `/document`
 **Purpose**: Generate or update documentation for files in scope and commit changes.
 
 **Key Features**:
@@ -329,7 +329,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/document task="update API docs" scope="src/api/"` to maintain current documentation.
 - `/document by updating API docs` (Using natural language.)
 
-#### **`/test`** - Test Generation & Execution
+#### `/test`
 **Purpose**: Generate tests for specified scope, run pytest, and commit if tests pass.
 
 **Key Features**:
@@ -342,7 +342,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/tests task="add tests for user service" scope="src/services/user.py"` for test-driven development.
 - `Develop /tests for the user service` (Using natural language.)
 
-#### **`/lint`** - Code Quality & Formatting
+#### **`/lint`
 **Purpose**: Lint and auto-correct using configured `workflows/conport/.env.md` tools with safety controls.
 
 **Key Features**:
@@ -357,7 +357,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 
 ### 🔍 **Analysis & Maintenance**
 
-#### **`/trace`** - Dependency Analysis
+#### `/trace`
 **Purpose**: Generate import and dependency traces for a scope, save artifacts, and log to ConPort for RAG.
 
 **Key Features**:
@@ -370,7 +370,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/trace scope="src/auth/"` to understand component dependencies before refactoring.
 - `Please /trace the authentication module` (Using natural language.)
 
-#### **`/imprint`** - Style Pattern Analysis
+#### `/imprint`
 **Purpose**: Identify and capture coding styles, patterns, and conventions from your codebase for consistent development.
 
 **Key Features**:
@@ -383,7 +383,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/imprint` to capture current codebase style patterns for new team members or AI context.
 - `Please /imprint the current coding style` (Using natural language.)
 
-#### **`/sweep`** - Git Activity Integration
+#### `/sweep`
 **Purpose**: Sweep recent git activity and integrate changes into ConPort context.
 
 **Key Features**:
@@ -396,7 +396,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/sweep since="3.days"` to catch up ConPort with recent development activity.
 - `Please /sweep the last three days` (Using natural language.)
 
-#### **`/plan`** - Project Planning
+#### `/plan`
 **Purpose**: Maintain project planning documents, close completed items, and generate next steps.
 
 **Key Features**:
@@ -410,7 +410,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 
 ### 🚢 **Deployment & Finalization**
 
-#### **`/finalize`** - Production Readiness
+#### `/finalize`
 **Purpose**: Apply maximum quality strictness, commit, push, and log completion in ConPort.
 
 **Key Features**:
