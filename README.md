@@ -1,14 +1,17 @@
 # Sequential ConPort Workflow Architecture
 
 This repository demonstrates a workflow architecture designed for AI agents (specifically Cascade via 
-Windsurf) that combines **Sequential Thinking**, **ConPort knowledge management**, and **Git MCP integration**. The 
-setup can be adapted for other AI agent tools through custom instructions.
+Windsurf) that combines **Sequential Thinking**, **ConPort knowledge management**, and **Git MCP integration**. 
+
+The setup can be adapted for other AI agent tools through whatever custom instructions medium is provided by the particular vendor.
 
 ---
 
-## 1.0 Architecture Overview
+## 1.0 ARCHITECTURE OVERVIEW
 
-> Note that if you just want the setup instructions, you can skip to `2.0 Setup Instructions` below.
+---
+
+> **Note that if you just want the setup instructions, you can skip to `2.0 Setup Instructions` below.**
 
 The workflow system is built on a **compositional architecture** with two distinct layers:
 
@@ -28,11 +31,11 @@ blocks using `action: include` references. These workflows provide:
 - **Consistent patterns** across all workflow implementations
 - **Maintainable composition** through building block reuse
 
-### 3. **Language-Agnostic Configuration**
+### 3. **Language-Agnostic Configuration (`workflows/conport/.env.md`)**
 All workflows are designed to work across multiple programming languages through centralized tool configuration:
 - **Single Source of Truth**: `.env.md` defines all language-specific tools and paths
 - **Generic Tool Categories**: Workflows reference abstract tools (formatter, linter, test_runner)
-- **Example Configurations**: Pre-built configurations for popular languages in `workflows/conport/examples/`
+- **Example Configurations**: Pre-built configurations for popular languages in `examples/`
 - **Easy Customization**: Copy and modify example configurations for your specific setup
 
 ## Key Reference Files
@@ -78,9 +81,11 @@ This architecture ensures:
 
 ---
 
-## 2.0 Setup Instructions
+## 2.0 SETUP INSTRUCTIONS
 
-### Prerequisites
+---
+
+### Part 1: Prerequisites
 
 Before setting up the workflow architecture, ensure you have the required tools installed:
 
@@ -151,10 +156,10 @@ Replace the project-specific placeholders:
 - `<Absolute path to project root>` → Your project's root directory
 - `<Destination of conport log file>` → Where you want ConPort logs (e.g., `{project_root}/.windsurf/conport.log`)
 
-### Initial Workflow Setup
-
-> Note that all files requiring configurations are in the `workflows/conport/` directory, and have filenames 
-> prefixed with `.`, which are ignored by Windsurf.
+### Part 2: Initial Workflow Setup
+Some intital configurations are required to get started with the setup. The files explicitly requiring changes are:
+- `workflows/conport/.env.md`
+- `workflows/conport/.brief.md`
 
 #### 1. Customize Project Brief
 Edit [`workflows/conport/.brief.md`](workflows/conport/.brief.md):
@@ -162,7 +167,7 @@ Edit [`workflows/conport/.brief.md`](workflows/conport/.brief.md):
 - Include your project's goals, architecture, and key components
 - This file serves as the canonical project description for ConPort initialization
 
-> Note that I have left an example of the one I was using in the file fore reference (hopefully this doesn't get me in trouble).
+> Note that I have left an example of the one I was using in the file for reference (hopefully this doesn't get me in trouble).
 > Your `.brief.md` does not necessarily need to be this detailed for this setup to work, but it's a good reference point.
 
 
@@ -267,39 +272,16 @@ version of the above would be:
 
 ---
 
-## MCP Integration
-
-The system integrates three key MCPs:
-- **Sequential Thinking MCP**: For complex problem decomposition
-- **ConPort MCP**: For project knowledge graph management  
-- **Git MCP**: For version control integration
-
-Together, these provide a comprehensive development environment that maintains project context, tracks decisions and 
-progress, and integrates with version control for collaborative development.
-
-### MCP Configuration
-
-The MCP server configurations are provided in the [mcp_config.json](mcp_config.json) file. Copy this configuration to your Windsurf settings or adapt it for your AI agent tool of choice.
-
-## Usage
-
-1. **Bootstrap**: Start with `/bootstrap` to initialize ConPort and load existing context
-2. **Development**: Use `/develop` for general development tasks with automatic context tracking
-3. **Specialized Workflows**: Use specific workflows like `/debug`, `/test`, `/document` as needed
-4. **Maintenance**: Use `/sweep` to sync recent git changes with ConPort
-
-Each workflow automatically manages ConPort context, ensuring your AI agent maintains comprehensive project knowledge across sessions.
+## 3.0 WORKFLOWS
 
 ---
 
-## 3.0 Workflows
-
 The workflows are designed as **single-word verbs** that align with natural language to encourage their use within 
-Windsurf's chat interface. Simply type `/workflow-name` to invoke any workflow. All workflows are **idempotent** by 
-design, meaning repeated execution is safe and won't cause unintended side effects.
+Windsurf's chat interface. Simply type `/<workflow-name>` to invoke any workflow.
 
-> **Safety First**: Destructive workflows execute in **dry-run mode by default** and request explicit permission 
-> before making changes that could affect your codebase.
+The behaviours of all workflows have been designed to leverage the following philosophies:
+- **Idempotency**: Repeated execution is safe and won't cause unintended side effects.
+- **Safety**: Destructive workflows execute in **dry-run mode by default** and request explicit permission before making changes that could affect your codebase.
 
 ### 🚀 **Core Workflows**
 
