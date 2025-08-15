@@ -123,9 +123,9 @@ The setup described in the section below leverages three MCPs:
 #### MCP Repositories/Documentation
 
 For convenience, links to their repositories/documentation are provided here:
-- [sequential-thinking] (https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
-- [git] (https://github.com/modelcontextprotocol/servers/tree/main/src/git)
-- [context-portal] (https://github.com/GreatScottyMac/context-portal)
+- [sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
+- [git](https://github.com/modelcontextprotocol/servers/tree/main/src/git)
+- [context-portal](https://github.com/GreatScottyMac/context-portal)
 
 #### 1. Configure MCP Servers
 Copy the configuration from [mcp_config.json](mcp_config.json) to your AI agent's settings:
