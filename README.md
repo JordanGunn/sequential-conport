@@ -236,39 +236,14 @@ See **[Language Examples Documentation](examples/README.md)** for detailed setup
 #### 3. Verify Configuration
 Double-check all workflow files in `workflows/conport/` for any remaining hardcoded paths or project-specific references that need updating.
 
-### Troubleshooting
+#### 4. Run `/bootstrap`
+Once you have completed these initial steps, run the `/bootstrap` workflow to initialize the setup within your project.
 
-#### Binary Path Issues
-If your agent can't find binaries:
-1. Use `which <command>` to find absolute paths
-2. Update MCP configuration with full paths
-3. Ensure paths are accessible to your agent's execution environment
+That's it! You're ready to go. See the following section (`3.0 WORKFLOWS`) for documentation on the various workflows
+and their use cases.
 
-#### ConPort Database Issues
-If ConPort initialization fails:
-1. Ensure the workspace directory exists and is writable
-2. Check that uvx can install and run `context-portal-mcp`
-3. Verify log file destination is writable
-
-#### Workflow Reference Errors
-If workflows can't find building blocks:
-1. Ensure all files in `workflows/conport/` are present
-2. Check that relative paths in workflow references are correct
-3. Verify `.windsurf/workflows/conport/` path structure matches your setup
-
-#### Chat Instance Not Detecting Workflows
-If your chat instance can't detect workflows, check the "description" of your workflows 
-Windsurf seems to dislike non-alpha-numeric characters in the descriptions. 
-
-For example the following "description": 
-
-> "Continue: Continue with development + get git updates/sweep"
-
-Will likely result in the workflow being undetected by Windsurf as a result of the "+", ":" and "/" characters.
-If you experience this, double-check your descriptions, and remove characters like this. An example of a corrected
-version of the above would be:
-
-> "Continue development idempotently by patching Active Context, sweeping recent changes, and running quality checks."
+> If you encounter issues here (e.g. workflows not being detected in chat instance), scroll to the 
+> bottom of the file for `TROUBLESHOOTING` information.
 
 ---
 
@@ -448,7 +423,6 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `/finalize task="prepare v1.2.0 release"`
 - `Please /finalize the release` (Using natural language.)
 
-
 ### 🔄 **Workflow Characteristics**
 
 #### **Idempotent Design**
@@ -480,3 +454,43 @@ This workflow system is **actively evolving**. Extensions, additions, and improv
 
 The architecture is designed to be **modular and extensible** - new workflows can leverage existing building blocks, 
 and new building blocks can be used across multiple workflows.
+
+---
+
+## TROUBLESHOOTING
+
+---
+
+### Binary Path Issues
+If your agent can't find binaries:
+1. Use `which <command>` to find absolute paths
+2. Update MCP configuration with full paths
+3. Ensure paths are accessible to your agent's execution environment
+
+### ConPort Database Issues
+If ConPort initialization fails:
+1. Ensure the workspace directory exists and is writable
+2. Check that uvx can install and run `context-portal-mcp`
+3. Verify log file destination is writable
+
+### Workflow Reference Errors
+If workflows can't find building blocks:
+1. Ensure all files in `workflows/conport/` are present
+2. Check that relative paths in workflow references are correct
+3. Verify `.windsurf/workflows/conport/` path structure matches your setup
+
+### Chat Instance Not Detecting Workflows
+If your chat instance can't detect workflows, check the "description" of your workflows 
+Windsurf seems to dislike non-alpha-numeric characters in the descriptions. 
+
+For example the following "description": 
+
+> "Continue: Continue with development + get git updates/sweep"
+
+Will likely result in the workflow being undetected by Windsurf as a result of the "+", ":" and "/" characters.
+If you experience this, double-check your descriptions, and remove characters like this. An example of a corrected
+version of the above would be:
+
+> "Continue development idempotently by patching Active Context, sweeping recent changes, and running quality checks."
+
+
