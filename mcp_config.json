@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "<absolute_path>/npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "git": {
+      "command": "<absolute_path>/uvx",
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "<Absolute path to project root>"
+      ]
+    },
+    "conport": {
+      "command": "<absolute_path>/uvx",
+      "args": [
+        "--from",
+        "context-portal-mcp",
+        "conport-mcp",
+        "--mode",
+        "stdio",
+        "--workspace_id",
+        "<Absolute path to project root>",
+        "--log-file",
+        "<Destination of conport log file>",
+        "--log-level",
+        "INFO"
+      ]
+    }
+  }
+}
