@@ -292,7 +292,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 **Purpose**: Reproduce test failures, iterate on fixes, and re-run tests until resolution.
 
 **Key Features**:
-- Runs pytest on specified scope
+- Runs testing tools configured in `conport/.env.md` on specified scope
 - Iterates through fix attempts with configurable retry limit
 - Logs debugging progress and results to ConPort
 - Maintains context of debugging decisions
@@ -343,7 +343,7 @@ The behaviours of all workflows have been designed to leverage the following phi
 - `Develop /tests for the user service` (Using natural language.)
 
 #### **`/lint`** - Code Quality & Formatting
-**Purpose**: Lint and auto-correct Python files using Poetry-managed tools with safety controls.
+**Purpose**: Lint and auto-correct using configured `workflows/conport/.env.md` tools with safety controls.
 
 **Key Features**:
 - Auto-fixes formatting and import organization
