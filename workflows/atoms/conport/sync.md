@@ -3,7 +3,7 @@ description:  Synchronize ConPort with the current conversation state.   Ensures
 ---
 
 ```yaml
-name: sync_conport
+name: sync_conport_atom
 description: |
   Synchronize ConPort with the current conversation state.
   Ensures new context, decisions, progress, and relations are captured
@@ -42,7 +42,7 @@ steps:
     output: "[CONPORT_SYNCING]"
 
   - id: update
-    action: include
+    action: Read the contents of the file.
     file: update.md
     with:
       active_patch: "{{ inputs.active_patch }}"

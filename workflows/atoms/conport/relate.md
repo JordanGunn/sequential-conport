@@ -3,7 +3,7 @@ description: Create relationships between ConPort items.
 ---
 
 ```yaml
-name: link_conport
+name: link_conport_atom
 description: |
   Create relationships between ConPort items.
   Designed to be idempotent and user-confirmed before changes.

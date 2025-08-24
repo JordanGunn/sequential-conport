@@ -1,14 +1,14 @@
 ```yaml
 # Include with:
-#   action: include
-#   file: .windsurf/workflows/conport/update.md
+#   action: Read the contents of the file.
+#   file: .windsurf/workflows/atoms/conport/update.md
 #   with:
 #     active_patch:  { ... }        # optional map
 #     product_patch: { ... }        # optional map
 #     decision:      { summary: "...", rationale: "...", tags: [...] }  # optional
 #     progress:      { description: "...", status: "IN_PROGRESS" }      # optional
 
-name: update_conport
+name: update_conport_atom
 description: "Safe, idempotent ConPort updates with explicit branching."
 
 inputs:

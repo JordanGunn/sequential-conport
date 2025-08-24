@@ -3,7 +3,7 @@ description: Load existing ConPort context from the workspace.
 ---
 
 ```yaml
-name: load_conport
+name: load_conport_atom
 description: |
   Load existing ConPort context from the workspace and summarize it.
   Sets status to [CONPORT_ACTIVE] if any context has substance; otherwise [CONPORT_INACTIVE].
@@ -115,7 +115,7 @@ steps:
     output: |
       ConPort database present but appears empty/minimal.
       Consider running:
-      - initialize → import .brief.md or define Product Context
+      - initialize → import brief.md or define Product Context
       - update    → set Active Context (current_focus, open_issues)
       - log       → seed first decisions/progress/patterns
 
