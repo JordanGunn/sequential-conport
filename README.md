@@ -195,4 +195,3 @@ A: Update `policies/personality.md` (natural language). Also use `always.md` and
 
 **Q: Can I run this mid‑project?**
 A: Yes. `/bootstrap` is designed to be safe on existing repos.
-
