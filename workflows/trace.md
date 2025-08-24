@@ -3,7 +3,7 @@ description: Generate import and dependency trace for a scope, save artifacts, l
 ---
 
 ```yaml
-name: conport_trace
+name: trace
 description: "Generate import/dependency trace for a scope; save artifacts; log to ConPort for RAG."
 
 inputs:
@@ -16,17 +16,17 @@ inputs:
 steps:
   # 0) Env + load
   - id: env
-    action: include
-    file: .windsurf/workflows/conport/.env.md
+    action: Read the contents of the file.
+    file: .windsurf/workflows/config/env.md
 
   - id: load
-    action: include
-    file: .windsurf/workflows/conport/load.md
+    action: Read the contents of the file.
+    file: .windsurf/workflows/atoms/conport/load.md
 
   # 1) Pre-patch Active Context
   - id: pre_patch
-    action: include
-    file: .windsurf/workflows/conport/update.md
+    action: Read the contents of the file.
+    file: .windsurf/workflows/atoms/conport/update.md
     with:
       active_patch:
         current_focus: "Trace: {{ inputs.scope }}"
@@ -116,8 +116,8 @@ steps:
 
   # 6) Post-patch Active Context
   - id: post_patch
-    action: include
-    file: .windsurf/workflows/conport/update.md
+    action: Read the contents of the file.
+    file: .windsurf/workflows/atoms/conport/update.md
     with:
       active_patch:
         current_focus: "Trace: {{ inputs.scope }}"

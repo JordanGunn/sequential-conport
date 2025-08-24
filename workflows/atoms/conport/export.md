@@ -3,7 +3,7 @@ description: Export ConPort state to Markdown for backup or sharing.
 ---
 
 ```yaml
-name: export_conport
+name: export_conport_atom
 description: |
   Export ConPort state to Markdown for backup or sharing.
   - Uses `export_conport_to_markdown` with the current workspace_id

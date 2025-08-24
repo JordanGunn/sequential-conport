@@ -1,10 +1,10 @@
 ```yaml
-name: initialize_conport
+name: initialize_conport_atom
 description: |
   Establish ConPort memory status for the current workspace and load context.
   - Detects DB presence at <workspace>/context_portal/context.db
   - If present → loads key context and marks [CONPORT_ACTIVE]
-  - If absent  → (optionally) bootstrap and import .brief.md, else mark [CONPORT_INACTIVE]
+  - If absent  → (optionally) bootstrap and import brief.md, else mark [CONPORT_INACTIVE]
   - Always returns a concise summary for downstream chains
 
 inputs:
@@ -17,11 +17,11 @@ inputs:
     type: string
     required: false
     default: ask     # one of: ask|yes|no
-    description: "Whether to import .brief.md into Product Context on first init."
+    description: "Whether to import brief.md into Product Context on first init."
   brief_path:
     type: string
     required: false
-    default: ".windsurf/workflows/conport/.brief.md"
+    default: ".windsurf/workflows/config/brief.md"
   limits:
     type: object
     required: false
@@ -54,8 +54,8 @@ steps:
   # 3) If DB exists → load context now (ACTIVE)
   - id: load_if_active
     when: "{{ steps.detect_db.has_db == true }}"
-    action: include
-    file: .windsurf/workflows/conport/load.md
+    action: Read the contents of the file.
+    file: .windsurf/workflows/atoms/conport/load.md
     with:
       limits: "{{ inputs.limits }}"
       recent_activity: "{{ inputs.recent_activity }}"
@@ -128,8 +128,8 @@ steps:
   # 7) After init, load context to confirm (ACTIVE)
   - id: load_after_init
     when: "{{ steps.init_decision.do_init == true }}"
-    action: include
-    file: .windsurf/workflows/conport/load.md
+    action: Read the contents of the file.
+    file: .windsurf/workflows/atoms/conport/load.md
     with:
       limits: "{{ inputs.limits }}"
       recent_activity: "{{ inputs.recent_activity }}"

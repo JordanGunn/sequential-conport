@@ -3,7 +3,7 @@ description: Retrieve information from ConPort.
 ---
 
 ```yaml
-name: search_conport
+name: search_conport_atom
 description: |
   Retrieve information from ConPort using FTS or semantic search.
   Selects the right tool based on query type and ensures concise results.
