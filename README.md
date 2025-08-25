@@ -2,26 +2,77 @@
 
 A modular workflow system for AI agents that turns your repo into a self‑documenting, idempotent workbench. 
 
-It is built on four core concepts:
+## Core Architecture
 
-**Atoms** 
-* Atomic units of work that execute MCP tools as verbs. All workflows are built from these blocks to ensure consistent behaviour.
+The framework is built on five interconnected components:
 
-**Hooks**
-* (`pre`, `post`): Hooks that execute before and after every workflow. 
-* `pre → [main steps] → post`
+**Atoms** - Miniature workflows based on verbs that are directly related to MCP tools. Used as building blocks for all top-level workflows to ensure consistency.
 
-**Policies**: 
-* (`always`, `never`): natural‑language guardrails loaded on every run.
-* `personality`: Additional contextual information regarding behaviour (e.g. skepticism, "You are a hiring manager <...>")
+**Hooks** - Agent instructions that execute before and after every workflow (`pre → [main steps] → post`).
 
-* **Dev module**: the “development loop” is intentionally **VCS‑free**; hooks or other workflows handle Git/ConPort.
+**Policies** - Natural language descriptions (always, never, personality) that guide agent behavior. New policies can be added by creating files under `policies/` and adding them to `policies/.index.md`.
+
+**Dev Module** - Contains the core development loop and configurable quality gates. Quality gates have boolean flags for turning on/off and are consumed from the env language profile. If no quality tools exist, they are ignored. The loop consumes a prompted task and safely performs it in a consistent manner.
+
+**Top-level Workflows** - Follow the pattern: `func(prompt) → pre-hook → instructions(loop(prompt), quality) → post-hook`
 
 Everything is designed to be safe, repeatable, and composable.
 
+
 ---
 
-## 1) Architecture at a glance
+## Quick Setup
+
+After ensuring dependencies and prerequisites are installed, you only need to edit:
+
+1. **`workflows/config/env.md`** - Configure your development environment (paths, tools, language profile)
+2. **`workflows/policies/`** - Customize agent behavior with natural language descriptions:
+   - Edit existing policies: `always.md`, `never.md`, `personality.md`
+   - Add new policies by creating files and adding them to `policies/.index.md`
+
+All policies are natural language descriptions - no code changes needed.
+
+---
+
+## Architecture Details
+
+### Components Overview
+
+#### **Atoms** - Building Blocks
+Miniature workflows based on verbs that are directly related to MCP tools. Used as building blocks for all top-level workflows to ensure consistency:
+- `atoms/conport/` - ConPort operations: initialize, load, search, relate, log, sync, export
+- `atoms/git/` - Git operations: status, diff, stage, commit, sweep
+- All workflows compose these atoms rather than implementing MCP calls directly
+
+#### **Hooks** - Execution Framework  
+Agent instructions that execute before and after every workflow:
+- `hooks/pre.md` - Preflight: loads env, policies; takes ConPort + Git snapshots
+- `hooks/post.md` - Postflight: syncs ConPort, exports snapshots, logs results
+- Pattern: `pre → [workflow instructions] → post`
+
+#### **Policies** - Behavioral Guidelines
+Natural language descriptions that guide agent behavior:
+- `policies/always.md` - Standing positive instructions ("do this")
+- `policies/never.md` - Guardrails and prohibitions ("don't do this") 
+- `policies/personality.md` - Role, tone, and behavioral guidelines
+- `policies/.index.md` - Registry of active policies (add new policies here)
+
+#### **Dev Module** - Development Loop
+Contains the core development loop and configurable quality gates:
+- `dev/loop.md` - VCS-free dev loop that consumes a prompted task and safely performs it
+- `dev/quality.md` - Quality gates with boolean flags for format/lint/types/tests
+- Quality gates consume settings from env language profile; missing tools are ignored
+
+#### **Top-level Workflows** - Complete Operations
+Follow the pattern: `func(prompt) → pre-hook → instructions(loop(prompt), quality) → post-hook`
+- Examples: `continue`, `bootstrap`, `refactor`, `tests`, `document`, `plan`, `report`
+- Each handles specific development tasks while maintaining consistency
+
+#### **Configuration** - Environment Setup
+- `config/env.md` - Allows swapping language files, provides factual dev environment info
+- `config/brief.md` - High-level project overview and contextual information for agents
+
+### Directory Structure
 
 ```
 .windsurf/
@@ -54,7 +105,7 @@ Everything is designed to be safe, repeatable, and composable.
 ## 2) Configuration
 
 ### `config/env.md` (environment facts)
-Keep this file focused on facts only:
+Allows swapping of language files and provides a location for factual information regarding your development environment. Keep this file focused on facts only:
 
 * Project paths (`root_path`, `tests_path`, etc.)
 * Executable paths you actually know (e.g., Poetry path)
@@ -63,12 +114,20 @@ Keep this file focused on facts only:
 * Language profiles (see `examples/env/`)
 
 ### `config/brief.md`
-* A high-level description of your project.
+Provides high-level overview and contextual information about your project in natural language for your agent:
+* A high-level description of your project
 * Provides context, end-goal, constraints, etc.
 
-### `policies/`
-* `always.md`, `never.md`, `personality.md` are **plain English**.
-* Add tone, safety rules, or collaboration style to `personality.md`.
+### `policies/` (Natural Language Descriptions)
+Current policies are `always`, `never`, and `personality`. All are **plain English**:
+* `always.md` - Standing positive instructions (what to do)
+* `never.md` - Guardrails and prohibitions (what not to do) 
+* `personality.md` - Role, tone, and behavioral guidelines
+
+**Adding New Policies:**
+1. Create a new `.md` file under `policies/` with natural language descriptions
+2. Add the new policy to `policies/.index.md` to make it active
+3. No code changes needed - policies are just natural language descriptions
 
 ### Quality gates (dev module)
 * **Toggle gates** via booleans:
@@ -123,8 +182,13 @@ Example (from a higher‑level workflow calling the dev loop):
 
 ## 4) Dev Module
 
-* **`dev/quality.md`**: Provides boolean switches for running linting, typechecking, formatting, etc.
-* **`dev/loop.md`**: Core development orchestration that takes a prompted **task** + **scope**, executes it, and applies the configured quality gates.
+Contains the core development loop and configurable quality gates:
+
+* **`dev/loop.md`**: VCS-free development orchestration that consumes a prompted **task** and safely performs the task in a consistent manner. Takes a prompted task + scope, executes it, and applies configured quality gates.
+
+* **`dev/quality.md`**: Configurable quality gates with boolean flags for turning on/off (format, lint, types, tests). Quality gates are consumed from the env language profile. If no quality tools exist, they are ignored.
+
+Pattern: Quality gates have boolean flags that enable/disable each check, and commands are derived from your language profile in `config/env.md`.
 
 ---
 
