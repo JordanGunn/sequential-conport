@@ -163,6 +163,9 @@ Example (from a higher‑level workflow calling the dev loop):
 ---
 
 ## 3) Hooks
+
+Agent instructions that execute before and after every workflow:
+
 * **Pre (`hooks/pre.md`)**
   1. Reads `env.md`; 
   2. Loads policies; 
@@ -170,7 +173,7 @@ Example (from a higher‑level workflow calling the dev loop):
   4. Performs Git sweep (commits, previews). 
   5. Emits a deterministic `preflight` object for downstream steps.
 
-* **Postflight (`hooks/post.md`)**
+* **Post (`hooks/post.md`)**
   1. Optionally captures Git, 
   2. syncs ConPort with any decisions/progress, 
   3. optionally exports a snapshot and logs a run record. 
@@ -193,6 +196,13 @@ Pattern: Quality gates have boolean flags that enable/disable each check, and co
 ---
 
 ## 5) Quick start
+
+**Minimal Setup Required:**
+After ensuring dependencies and prerequisites are installed, edit:
+- `workflows/config/env.md` - Configure your development environment 
+- `workflows/policies/` - Customize agent behavior (all files are natural language)
+
+**Then:**
 
 1. **Dry-run a workflow**
    Ask your agent to run any workflow in dry‑run/analyze mode. It will report any path‑resolution 
